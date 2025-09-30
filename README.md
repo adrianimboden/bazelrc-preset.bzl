@@ -21,7 +21,11 @@ Read [the Bazel bazelrc documentation](https://bazel.build/run/bazelrc).
 ## Install
 
 1. Add `bazelrc-preset.bzl` to your `MODULE.bazel` file.
-2. Call it from a `BUILD` file, for example in `tools/BUILD`:
+    ```starlark
+    bazel_dep(name = "bazelrc-preset.bzl", version = "1.3.0")
+    ```
+
+3. Call it from a `BUILD` file, for example in `tools/BUILD`:
 
     ```starlark
     load("@bazelrc-preset.bzl", "bazelrc_preset")
@@ -31,11 +35,11 @@ Read [the Bazel bazelrc documentation](https://bazel.build/run/bazelrc).
     )
     ```
 
-3. Create the preset by running `bazel run //tools:preset.update`.
+4. Create the preset by running `bazel run //tools:preset.update`.
 Note that you don't need to remember the command.
 A test target `preset.update_test` is also created, which prints the command if the file is missing or has outdated contents.
 
-4. Import it into your project's `/.bazelrc` file.
+5. Import it into your project's `/.bazelrc` file.
 We suggest you add it at the top, so that project-specific flags may override values.
 See https://bazel.build/configure/best-practices#bazelrc-file
 
@@ -61,7 +65,7 @@ See https://bazel.build/configure/best-practices#bazelrc-file
     try-import %workspace%/user.bazelrc
     ```
 
-5. Some flags are enabled only under a given config.
+6. Some flags are enabled only under a given config.
    For example, many flags apply only when running on CI.
    Configure your CI system to always pass `--config=ci` when running Bazel (for example, put it in the system bazelrc on CI runner machines).
 
